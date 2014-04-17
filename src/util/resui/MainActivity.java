@@ -12,26 +12,22 @@ import android.view.WindowManager.LayoutParams;
 
 public class MainActivity extends Activity
 {
-
+	Button mRes1;
+	Button mRes2;
+	Button mRes3;
+	Button mReboot;
+	DisplayMetrics mMetrics;
+	int w;
+	int h;
+	int density;
+	TextView mResInfo;
+	String[] cmds;
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
 	{
-
-
-		Button mRes1;
-		Button mRes2;
-		Button mRes3;
-		Button mReboot;
-		DisplayMetrics mMetrics;
-		int w;
-		int h;
-		int density;
-		TextView mResInfo;
-		String[] cmds;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-
 		LayoutParams layOutParams = new WindowManager.LayoutParams(
 			WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
 			WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
