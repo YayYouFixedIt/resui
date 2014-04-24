@@ -9,12 +9,14 @@ import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.WindowManager.LayoutParams;
+import android.graphics.Point;
 
 public class MainActivity extends Activity
 {
 	Button mRes1;
 	Button mRes2;
 	Button mRes3;
+	
 	Button mReboot;
 	DisplayMetrics mMetrics;
 	int w;
@@ -22,6 +24,10 @@ public class MainActivity extends Activity
 	int density;
 	TextView mResInfo;
 	String[] cmds;
+
+	private Button mBackup;
+
+	private Button mRestore;
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -35,8 +41,12 @@ public class MainActivity extends Activity
 		getWindow().setAttributes(layOutParams);
 		mMetrics = new DisplayMetrics();
 		mResInfo = (TextView)findViewById(R.id.text_resolution);
+		
 		w = getWindowManager().getDefaultDisplay().getWidth();
 		h = getWindowManager().getDefaultDisplay().getHeight();
+		Display display = getWindowManager().getDefaultDisplay();
+
+        // You could also easily used an integer value from the shared preferences to set the percent
 		getWindowManager().getDefaultDisplay().getMetrics(mMetrics);
 		density = mMetrics.densityDpi;
 		String info = "Current Resolution: " + w + " " + h + "\n" + "Current Density: " + density;
@@ -78,6 +88,25 @@ public class MainActivity extends Activity
 				public void onClick(View v)
 				{
 					String [] cmds = {"reboot"};
+					
+					RunAsRoot(cmds);
+				}
+			});
+		mBackup = (Button)findViewById(R.id.backup);
+		mBackup.setOnClickListener(new View.OnClickListener(){
+				public void onClick(View v)
+				{
+					toSdCard(1);//copy backup script to cache dir
+					String[] cmds = {"sh " + getCacheDir().getAbsolutePath() + "/backup.sh"};
+					RunAsRoot(cmds);
+				}
+			});
+		mRestore = (Button)findViewById(R.id.restore);
+		mRestore.setOnClickListener(new View.OnClickListener(){
+				public void onClick(View v)
+				{
+					toSdCard(2); //copy restore script to cache dir
+					String[] cmds = {"sh " + getCacheDir().getAbsolutePath() + "/restore.sh"};
 					RunAsRoot(cmds);
 				}
 			});
@@ -87,9 +116,68 @@ public class MainActivity extends Activity
 	{
 		switch (density)
 		{
+			
+			case 1:
+				InputStream in = getResources().openRawResource(R.raw.backup);
+				String file = getCacheDir().getAbsolutePath() + "/backup.sh";
+				try
+				{
+					FileOutputStream out = new FileOutputStream(file);
+
+					byte[] buff = new byte[1024];
+					int read = 0;
+
+					try
+					{
+						while ((read = in.read(buff)) > 0)
+						{
+							out.write(buff, 0, read);
+						}
+					}
+					finally
+					{
+						in.close();
+
+						out.close();
+					}
+				}
+				catch (IOException E)
+				{
+
+				}
+				break;
+			case 2:
+				in = getResources().openRawResource(R.raw.restore);
+				file = getCacheDir().getAbsolutePath() + "/restore.sh";
+				try
+				{
+					FileOutputStream out = new FileOutputStream(file);
+
+					byte[] buff = new byte[1024];
+					int read = 0;
+
+					try
+					{
+						while ((read = in.read(buff)) > 0)
+						{
+							out.write(buff, 0, read);
+						}
+					}
+					finally
+					{
+						in.close();
+
+						out.close();
+					}
+				}
+				catch (IOException E)
+				{
+
+				}
+				break;
 			case 320:
-				InputStream in = getResources().openRawResource(R.raw.density_320);
-				String file = getCacheDir().getAbsolutePath() + "/density_320.sh";
+				in = getResources().openRawResource(R.raw.density_320);
+				file = getCacheDir().getAbsolutePath() + "/density_320.sh";
 				try
 				{
 					FileOutputStream out = new FileOutputStream(file);
@@ -197,4 +285,5 @@ public class MainActivity extends Activity
 			e.printStackTrace();
 		}
 	}
+	
 }

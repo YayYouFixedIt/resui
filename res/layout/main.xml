@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="600dp"
+	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:gravity="center_horizontal"
-	android:orientation="vertical"
-
->
+	android:orientation="vertical">
 
 	<TextView
 		android:id="@+id/text_resolution"
@@ -32,7 +30,16 @@
 		android:layout_height="wrap_content"
 		android:text="1280×800"
 		android:layout_width="150dp"/>
-
+	<Button
+		android:id="@+id/backup"
+		android:layout_height="wrap_content"
+		android:text="Backup"
+		android:layout_width="150dp"/>
+	<Button
+		android:id="@+id/restore"
+		android:layout_height="wrap_content"
+		android:text="Restore"
+		android:layout_width="150dp"/>
 	<Button
 		android:id="@+id/reboot"
 		android:layout_height="wrap_content"
