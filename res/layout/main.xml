@@ -12,7 +12,11 @@
 		android:text="Medium Text"
 		android:textAppearance="?android:attr/textAppearanceMedium"
 		android:layout_width="wrap_content"/>
-
+	<Button
+		android:id="@+id/backup"
+		android:layout_height="wrap_content"
+		android:text="Backup build.prop"
+		android:layout_width="150dp"/>
 	<Button
 		android:id="@+id/res1"
 		android:layout_height="wrap_content"
@@ -30,15 +34,11 @@
 		android:layout_height="wrap_content"
 		android:text="1280×800"
 		android:layout_width="150dp"/>
-	<Button
-		android:id="@+id/backup"
-		android:layout_height="wrap_content"
-		android:text="Backup"
-		android:layout_width="150dp"/>
+	
 	<Button
 		android:id="@+id/restore"
 		android:layout_height="wrap_content"
-		android:text="Restore"
+		android:text="Restore Defaults"
 		android:layout_width="150dp"/>
 	<Button
 		android:id="@+id/reboot"
