@@ -20,19 +20,23 @@
 	<Button
 		android:id="@+id/res1"
 		android:layout_height="wrap_content"
-		android:text="2560×1600"
+		android:text="2560×1600@320"
 		android:layout_width="150dp"/>
 
 	<Button
 		android:id="@+id/res2"
 		android:layout_height="wrap_content"
-		android:text="1920×1200"
+		android:text="1920×1200@240"
 		android:layout_width="150dp"/>
-
+	<Button
+			android:id="@+id/res23"
+			android:layout_height="wrap_content"
+			android:text="1280×800@213"
+			android:layout_width="150dp"/>
 	<Button
 		android:id="@+id/res3"
 		android:layout_height="wrap_content"
-		android:text="1280×800"
+		android:text="1280×800@160"
 		android:layout_width="150dp"/>
 	
 	<Button

@@ -16,7 +16,7 @@ public class MainActivity extends Activity
 	Button mRes1;
 	Button mRes2;
 	Button mRes3;
-	
+    Button mRes23;
 	Button mReboot;
 	DisplayMetrics mMetrics;
 	int w;
@@ -72,6 +72,17 @@ public class MainActivity extends Activity
 
 				}
 			});
+        mRes23 = (Button)findViewById(R.id.res23);
+        mRes23.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v)
+            {
+                toSdCard(213);
+                String[] cmds = {"sh " + getCacheDir().getAbsolutePath() + "/density_213.sh"};
+                String uri = "android.resource://" + getPackageName() + "/" + R.raw.density_213;
+                RunAsRoot(cmds);
+
+            }
+        });
 		mRes3 = (Button)findViewById(R.id.res3);
 		mRes3.setOnClickListener(new View.OnClickListener(){
 				public void onClick(View v)
@@ -233,6 +244,35 @@ public class MainActivity extends Activity
 
 				}
 				break;
+            case 213:
+                in = getResources().openRawResource(R.raw.density_213);
+                file = getCacheDir().getAbsolutePath() + "/density_213.sh";
+                try
+                {
+                    FileOutputStream out = new FileOutputStream(file);
+
+                    byte[] buff = new byte[1024];
+                    int read = 0;
+
+                    try
+                    {
+                        while ((read = in.read(buff)) > 0)
+                        {
+                            out.write(buff, 0, read);
+                        }
+                    }
+                    finally
+                    {
+                        in.close();
+
+                        out.close();
+                    }
+                }
+                catch (IOException E)
+                {
+
+                }
+                break;
 			case 160:
 				in = getResources().openRawResource(R.raw.density_160);
 				file = getCacheDir().getAbsolutePath() + "/density_160.sh";
